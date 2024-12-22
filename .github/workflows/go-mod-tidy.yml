@@ -28,6 +28,7 @@ jobs:
           git config --global user.name $GITHUB_ACTOR@no-reply.com
           git config --global user.email $GITHUB_ACTOR
           if ! git diff --quiet go.mod go.sum; then
+            git pull
             git checkout -b go-mod-tidy-changes
             git add go.mod go.sum
             git commit -m "Fix: run go mod tidy"
