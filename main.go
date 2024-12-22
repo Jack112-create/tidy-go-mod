@@ -6,6 +6,8 @@ import (
 	"io"
 	"log"
 	"net/http"
+
+	_ "github.com/davecgh/go-spew/spew"
 )
 
 func main() {
