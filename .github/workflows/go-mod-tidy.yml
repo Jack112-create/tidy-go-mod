@@ -25,11 +25,19 @@ jobs:
 
       - name: Check for changes
         run: |
-          git config --global user.name "Jack112-create"
-          git config --global user.email "jackconroy777@gmail.com"
+          git config --global user.name $GITHUB_ACTOR@no-reply.com
+          git config --global user.email $GITHUB_ACTOR
           if ! git diff --quiet go.mod go.sum; then
             git checkout -b go-mod-tidy-changes
             git add go.mod go.sum
             git commit -m "Fix: run go mod tidy"
             git push origin go-mod-tidy-changes
           fi
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: go-mod-tidy-changes
+          title: "Fix: Clean up go.mod and go.sum"
+          body: |
+            This pull request was automatically created to tidy up dependencies using `go mod tidy`.
